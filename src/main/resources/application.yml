@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      uri: ${com_camenduru_mongodb_uri}
+
+camenduru:
+  scheduler.default.free.total: ${com_camenduru_scheduler2_default_free_total}
+  scheduler.default.paid.total: ${com_camenduru_scheduler2_default_paid_total}
+  scheduler.cron1: ${com_camenduru_scheduler2_cron1}
+  scheduler.cron2: ${com_camenduru_scheduler2_cron2}
+  scheduler.cron3: ${com_camenduru_scheduler2_cron3}
