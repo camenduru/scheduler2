@@ -42,7 +42,7 @@ public class SchedulerConfig implements AsyncConfigurer, SchedulingConfigurer {
     private JobRepository jobRepository;
 
     @Autowired
-    private SettingRepository detailRepository;
+    private SettingRepository settingRepository;
     
     @Override
     public Executor getAsyncExecutor() {
@@ -75,15 +75,15 @@ public class SchedulerConfig implements AsyncConfigurer, SchedulingConfigurer {
             @Override
             public void run() {
                 try {
-                    detailRepository.findAllByMembershipIsFree()
-                        .forEach(detail -> {
-                            detail.setTotal(defaultFreeTotal);
-                            detailRepository.save(detail);
+                    settingRepository.findAllByMembershipIsFree()
+                        .forEach(setting -> {
+                            setting.setTotal(defaultFreeTotal);
+                            settingRepository.save(setting);
                         });
-                    detailRepository.findAllByMembershipIsPaid()
-                        .forEach(detail -> {
-                            detail.setTotal(defaultPaidTotal);
-                            detailRepository.save(detail);
+                    settingRepository.findAllByMembershipIsPaid()
+                        .forEach(setting -> {
+                            setting.setTotal(defaultPaidTotal);
+                            settingRepository.save(setting);
                         });
                 } catch (Exception e) {
                     e.printStackTrace();
