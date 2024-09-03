@@ -77,13 +77,17 @@ public class SchedulerConfig implements AsyncConfigurer, SchedulingConfigurer {
                 try {
                     settingRepository.findAllByMembershipIsFree()
                         .forEach(setting -> {
-                            setting.setTotal(defaultFreeTotal);
-                            settingRepository.save(setting);
+                            if (Integer.parseInt(setting.getTotal()) < Integer.parseInt(defaultFreeTotal)) {
+                                setting.setTotal(defaultFreeTotal);
+                                settingRepository.save(setting);
+                            }
                         });
                     settingRepository.findAllByMembershipIsPaid()
                         .forEach(setting -> {
-                            setting.setTotal(defaultPaidTotal);
-                            settingRepository.save(setting);
+                            if (Integer.parseInt(setting.getTotal()) < Integer.parseInt(defaultPaidTotal)) {
+                                setting.setTotal(defaultPaidTotal);
+                                settingRepository.save(setting);
+                            }
                         });
                 } catch (Exception e) {
                     e.printStackTrace();
