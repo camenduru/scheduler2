@@ -9,3 +9,4 @@ camenduru:
   scheduler.cron1: ${com_camenduru_scheduler2_cron1}
   scheduler.cron2: ${com_camenduru_scheduler2_cron2}
   scheduler.cron3: ${com_camenduru_scheduler2_cron3}
+  scheduler.cron4: ${com_camenduru_scheduler2_cron4}
