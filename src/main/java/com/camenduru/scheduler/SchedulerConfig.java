@@ -118,8 +118,8 @@ public class SchedulerConfig implements AsyncConfigurer, SchedulingConfigurer {
             @Override
             public void run() {
                 try {
-                    Date thirtyMinutesAgo = new Date(System.currentTimeMillis() - (30 * 60 * 1000));
-                    jobRepository.findAllWorkingJobsOlderThanTheDate(thirtyMinutesAgo)
+                    Date fortyMinutesAgo = new Date(System.currentTimeMillis() - (40 * 60 * 1000));
+                    jobRepository.findAllWorkingJobsOlderThanTheDate(fortyMinutesAgo)
                         .forEach(job -> {
                             if (job.getType().startsWith("train")) {
                                 job.setStatus(JobStatus.FAILED);
