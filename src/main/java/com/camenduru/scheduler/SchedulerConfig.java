@@ -66,8 +66,10 @@ public class SchedulerConfig implements AsyncConfigurer, SchedulingConfigurer {
                     Date twelveHoursAgo = new Date(System.currentTimeMillis() - (12 * 60 * 60 * 1000));
                     jobRepository.findAllNonExpiredJobsOlderThanTheDate(twelveHoursAgo)
                         .forEach(job -> {
-                            job.setStatus(JobStatus.EXPIRED);
-                            jobRepository.save(job);
+                            if (!job.getType().startsWith("train")) {
+                                job.setStatus(JobStatus.EXPIRED);
+                                jobRepository.save(job);
+                            }
                         });
                 } catch (Exception e) {
                     e.printStackTrace();
