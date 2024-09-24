@@ -41,6 +41,9 @@ public class SchedulerConfig implements AsyncConfigurer, SchedulingConfigurer {
     @Value("${camenduru.scheduler.cron4}")
     private String cron4;
 
+    @Value("${camenduru.scheduler.cron5}")
+    private String cron5;
+
     @Autowired
     private JobRepository jobRepository;
 
@@ -133,6 +136,23 @@ public class SchedulerConfig implements AsyncConfigurer, SchedulingConfigurer {
                 }
             }
         }, cron4);
+        taskRegistrar.addCronTask(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Date fourDaysAgo = new Date(System.currentTimeMillis() - (4 * 24 * 60 * 60 * 1000));
+                    jobRepository.findAllNonExpiredJobsOlderThanTheDate(fourDaysAgo)
+                        .forEach(job -> {
+                            if (job.getType().startsWith("train")) {
+                                job.setStatus(JobStatus.EXPIRED);
+                                jobRepository.save(job);
+                            }
+                        });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, cron5);
     }
 
 }

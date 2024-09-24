@@ -11,6 +11,7 @@ Environment="com_camenduru_scheduler2_cron1=0 0 0/12 * * ?"
 Environment="com_camenduru_scheduler2_cron2=0 0 0 * * ?"
 Environment="com_camenduru_scheduler2_cron3=0 0/10 * * * ?"
 Environment="com_camenduru_scheduler2_cron4=0 0/40 * * * ?"
+Environment="com_camenduru_scheduler2_cron5=0 0 0 */4 * ?"
 WorkingDirectory=/content/com.camenduru/scheduler2
 ExecStart=/bin/bash -c 'java -Dserver.port=4002 -jar target/scheduler-2-0.0.1.jar'
 Restart=always
